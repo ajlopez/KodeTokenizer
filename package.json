@@ -1,0 +1,16 @@
+{ "name": "kodetokenizer"
+, "description": "KodeTokenizer mutation testing framework"
+, "keywords": [ "mutation", "source code", "framework" ]
+, "version": "0.0.1alpha"
+, "author": "Angel 'Java' Lopez <webmaster@ajlopez.com> (http://www.ajlopez.com)"
+, "repository": { "type": "git", "url": "git://github.com/ajlopez/KodeTokenizer.git" }
+, "main": "./lib/kodetokenizer.js"
+, "engines": { "node": ">= 0.6.0 && < 0.11.0" }
+, "scripts": {
+    "test": "node ./test/mutate && node ./test/run"
+  }
+, "dependencies": {
+  }
+, "devDependencies": {
+  }
+}
