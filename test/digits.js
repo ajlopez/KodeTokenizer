@@ -2,7 +2,7 @@
 var kodetokenizer = require('..'),
     assert = require('assert');
     
-var Digits = kodetokenizer.Digits;
+var Types = kodetokenizer.Types;
     
 // get digit
 
@@ -11,5 +11,5 @@ assert.ok(tokens);
 assert.ok(Array.isArray(tokens));
 assert.equal(tokens.length, 1);
 assert.equal(tokens[0].value, '1');
-assert.equal(tokens[0].type, Digits);
+assert.equal(tokens[0].type, Types.Digits);
 

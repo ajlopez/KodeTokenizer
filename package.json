@@ -7,7 +7,7 @@
 , "main": "./lib/kodetokenizer.js"
 , "engines": { "node": ">= 0.6.0 && < 0.11.0" }
 , "scripts": {
-    "test": "node ./test/mutate && node ./test/run"
+    "test": "node ./test"
   }
 , "dependencies": {
   }
