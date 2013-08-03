@@ -12,11 +12,16 @@ function string(ch, text, position) {
     
     var l = 0;
     var ip = position;
+    var result = ''
     
-    while (position < length && text[position] != ch)
-        position++;
+    while (position < length && text[position] != ch) {
+        if (text[position] === '\\')
+            position++;
+            
+        result += text[position++];
+    }
         
-    var token = { value: text.substring(ip, position), type: Types.String };
+    var token = { value: result, type: Types.String };
         
     if (position < length)
         position++;
@@ -31,5 +36,23 @@ assert.ok(tokens);
 assert.ok(Array.isArray(tokens));
 assert.equal(tokens.length, 1);
 assert.equal(tokens[0].value, 'foo');
+assert.equal(tokens[0].type, Types.String);
+
+// get single quoted string
+
+var tokens = kodetokenizer.getTokens("'foo'", { processors: { "'": string } });
+assert.ok(tokens);
+assert.ok(Array.isArray(tokens));
+assert.equal(tokens.length, 1);
+assert.equal(tokens[0].value, 'foo');
+assert.equal(tokens[0].type, Types.String);
+
+// get single quoted string with single quote
+
+var tokens = kodetokenizer.getTokens("'foo\\\'bar'", { processors: { "'": string } });
+assert.ok(tokens);
+assert.ok(Array.isArray(tokens));
+assert.equal(tokens.length, 1);
+assert.equal(tokens[0].value, 'foo\'bar');
 assert.equal(tokens[0].type, Types.String);
 
