@@ -7,6 +7,12 @@ Types.String = ++Types.MaxValue;
 
 // recognizer
 
+var escapedchars = {
+    'n': '\n',
+    't': '\t',
+    'r': '\r'
+};
+
 function string(ch, text, position) {
     var length = text.length;
     
@@ -15,8 +21,14 @@ function string(ch, text, position) {
     var result = ''
     
     while (position < length && text[position] != ch) {
-        if (text[position] === '\\')
+        if (text[position] === '\\') {
             position++;
+            
+            if (escapedchars[text[position]]) {
+                result += escapedchars[text[position++]]
+                continue;
+            }
+        }
             
         result += text[position++];
     }
@@ -56,3 +68,11 @@ assert.equal(tokens.length, 1);
 assert.equal(tokens[0].value, 'foo\'bar');
 assert.equal(tokens[0].type, Types.String);
 
+// get single quoted string special characters
+
+var tokens = kodetokenizer.getTokens("'foo\\n\\r\\tbar'", { processors: { "'": string } });
+assert.ok(tokens);
+assert.ok(Array.isArray(tokens));
+assert.equal(tokens.length, 1);
+assert.equal(tokens[0].value, 'foo\n\r\tbar');
+assert.equal(tokens[0].type, Types.String);
